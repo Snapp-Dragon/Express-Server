@@ -1,7 +1,16 @@
 //bring in express
 const express = require('express');
+
+//bring is config
+const connectDB = require('./config/db');
 //initilize express
 const app = express();
+
+//connect database
+connectDB();
+
+//init middleware
+app.use(express.json({ extended: false }));
 
 //create get end point
 app.get('/', (req, res) => {
