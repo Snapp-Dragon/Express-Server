@@ -27,7 +27,7 @@ const ContactState = props => {
       {
         id: 1,
         name: 'Chad Farrington',
-        emaill: 'sandrock11@hotmail.com',
+        email: 'sandrock11@hotmail.com',
         phone: '3614192',
         type: 'Personal'
       },
@@ -35,17 +35,17 @@ const ContactState = props => {
       {
         id: 2,
         name: 'Alexio Edwards',
-        emaill: 'ate006@hotmail.com',
+        email: 'ate006@hotmail.com',
         phone: '392544371',
-        type: 'Personal'
+        type: 'Professional'
       },
 
       {
         id: 3,
         name: 'Franklyn minns',
-        emaill: 'bigpun12@hotmail.com',
+        email: 'bigpun12@hotmail.com',
         phone: '32345321',
-        type: 'Personal'
+        type: 'Professional'
       }
     ]
   };
