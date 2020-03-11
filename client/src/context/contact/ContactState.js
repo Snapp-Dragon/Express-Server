@@ -2,7 +2,7 @@
 import React, { useReducer } from 'react';
 
 // random id generator to test data
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 //import contactContext to make the state available to your other components
 import ContactContext from '../contact/contactContext';
@@ -56,6 +56,12 @@ const ContactState = props => {
   /* Actions for the state*/
 
   // Add Contact
+
+  const addContact = contact => {
+    contact.id = uuid();
+
+    dispatch({ type: ADD_CONTACT, payload: contact });
+  };
   // Delete Contact
   // Set Current Contact
   // Clear Current Contact
@@ -68,7 +74,8 @@ const ContactState = props => {
   return (
     <ContactContext.Provider
       value={{
-        contacts: state.contacts
+        contacts: state.contacts,
+        addContact
       }}
     >
       {props.children}
