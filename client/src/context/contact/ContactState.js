@@ -29,7 +29,7 @@ const ContactState = props => {
         name: 'Chad Farrington',
         email: 'sandrock11@hotmail.com',
         phone: '3614192',
-        type: 'Personal'
+        type: 'personal'
       },
 
       {
@@ -37,7 +37,7 @@ const ContactState = props => {
         name: 'Alexio Edwards',
         email: 'ate006@hotmail.com',
         phone: '392544371',
-        type: 'Professional'
+        type: 'professional'
       },
 
       {
@@ -45,7 +45,7 @@ const ContactState = props => {
         name: 'Franklyn minns',
         email: 'bigpun12@hotmail.com',
         phone: '32345321',
-        type: 'Professional'
+        type: 'professional'
       }
     ],
 
@@ -79,6 +79,12 @@ const ContactState = props => {
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
   };
+
+  //update contact
+  const updateContact = contact => {
+    dispatch({ type: UPDATE_CONTACT, payload: contact });
+  };
+
   // Filter Contacts
   // Clear Filter
 
@@ -92,7 +98,8 @@ const ContactState = props => {
         addContact,
         deleteContact,
         setCurrent,
-        clearCurrent
+        clearCurrent,
+        updateContact
       }}
     >
       {props.children}
