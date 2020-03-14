@@ -16,7 +16,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_CONTACT,
-  FILTER_CONTACT,
+  FILTER_CONTACTS,
   CLEAR_FILTER
 } from '../types';
 
@@ -49,7 +49,9 @@ const ContactState = props => {
       }
     ],
 
-    current: null
+    current: null,
+
+    filtered: null
   };
 
   //state allows us to access anything is our state  & dispatch allows us to dispatch objects to the reducer
@@ -86,7 +88,15 @@ const ContactState = props => {
   };
 
   // Filter Contacts
+
+  const filterContacts = text => {
+    dispatch({ type: FILTER_CONTACTS, payload: text });
+  };
   // Clear Filter
+
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   //return the provider to provide access to the state and actions to child components
 
@@ -95,11 +105,14 @@ const ContactState = props => {
       value={{
         contacts: state.contacts,
         current: state.current,
+        filtered: state.filtered,
         addContact,
         deleteContact,
         setCurrent,
         clearCurrent,
-        updateContact
+        updateContact,
+        filterContacts,
+        clearFilter
       }}
     >
       {props.children}
