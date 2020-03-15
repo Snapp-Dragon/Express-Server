@@ -46,6 +46,27 @@ const ContactState = props => {
         email: 'bigpun12@hotmail.com',
         phone: '32345321',
         type: 'professional'
+      },
+      {
+        id: 4,
+        name: 'willi white',
+        email: 'willibun12@hotmail.com',
+        phone: '32456432',
+        type: 'personal'
+      },
+      {
+        id: 5,
+        name: 'jasmin harris',
+        email: 'jharris@hotmail.com',
+        phone: '56437862',
+        type: 'personal'
+      },
+      {
+        id: 6,
+        name: 'william mckeown',
+        email: 'wmic2@hotmail.com',
+        phone: '9876534432',
+        type: 'professional'
       }
     ],
 
