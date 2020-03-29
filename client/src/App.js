@@ -8,9 +8,14 @@ import AlertState from './context/alert/AlertState';
 import Register from './components/auth/Register';
 import Alerts from './components/layout/Alerts';
 import Login from './components/auth/Login';
+import setAuthToken from './utils/setAuthToken';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
