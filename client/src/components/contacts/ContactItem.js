@@ -8,11 +8,11 @@ const ContactItem = ({ contact }) => {
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
   //pull information out of the contact prop that was passed in
-  const { id, name, email, phone, type } = contact;
+  const { _id, name, email, phone, type } = contact;
 
   // on delete
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
   };
 

@@ -1,8 +1,7 @@
 //the use reducer hook allows us to have access to state as a functional component
 import React, { useReducer } from 'react';
 
-// random id generator to test data
-import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 
 //import contactContext to make the state available to your other components
 import ContactContext from '../contact/contactContext';
@@ -12,7 +11,10 @@ import contactReducer from './contactReducer';
 
 import {
   ADD_CONTACT,
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
   DELETE_CONTACT,
+  CONTACT_ERROR,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_CONTACT,
@@ -23,56 +25,13 @@ import {
 //set initial state
 const ContactState = props => {
   const initialState = {
-    contacts: [
-      {
-        id: 1,
-        name: 'Chad Farrington',
-        email: 'sandrock11@hotmail.com',
-        phone: '3614192',
-        type: 'personal'
-      },
-
-      {
-        id: 2,
-        name: 'Alexio Edwards',
-        email: 'ate006@hotmail.com',
-        phone: '392544371',
-        type: 'professional'
-      },
-
-      {
-        id: 3,
-        name: 'Franklyn minns',
-        email: 'bigpun12@hotmail.com',
-        phone: '32345321',
-        type: 'professional'
-      },
-      {
-        id: 4,
-        name: 'willi white',
-        email: 'willibun12@hotmail.com',
-        phone: '32456432',
-        type: 'personal'
-      },
-      {
-        id: 5,
-        name: 'jasmin harris',
-        email: 'jharris@hotmail.com',
-        phone: '56437862',
-        type: 'personal'
-      },
-      {
-        id: 6,
-        name: 'william mckeown',
-        email: 'wmic2@hotmail.com',
-        phone: '9876534432',
-        type: 'professional'
-      }
-    ],
+    contacts: null,
 
     current: null,
 
-    filtered: null
+    filtered: null,
+
+    error: null
   };
 
   //state allows us to access anything is our state  & dispatch allows us to dispatch objects to the reducer
@@ -80,18 +39,53 @@ const ContactState = props => {
 
   /* Actions for the state*/
 
+  //GET CONTACTS
+
+  const getContacts = async () => {
+    //create headers to send data
+    try {
+      const res = await axios.post('/api/contacts');
+
+      dispatch({ type: GET_CONTACTS, payload: res.data });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.msg });
+    }
+  };
+
   // Add Contact
+  const addContact = async contact => {
+    //create headers to send data
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
 
-  const addContact = contact => {
-    contact.id = uuid();
+    try {
+      const res = await axios.post('/api/contacts', contact, config);
 
-    dispatch({ type: ADD_CONTACT, payload: contact });
+      dispatch({ type: ADD_CONTACT, payload: res.data });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.msg });
+    }
   };
   // Delete Contact
 
-  const deleteContact = id => {
-    dispatch({ type: DELETE_CONTACT, payload: id });
+  const deleteContact = async id => {
+    try {
+      await axios.post(`/api/contacts/${id}`);
+
+      dispatch({ type: DELETE_CONTACT, payload: id });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.msg });
+    }
   };
+
+  //clear contacts
+  const clearContacts = () => {
+    dispatch({ type: CLEAR_CONTACTS });
+  };
+
   // Set Current Contact
 
   const setCurrent = contact => {
@@ -127,13 +121,16 @@ const ContactState = props => {
         contacts: state.contacts,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addContact,
         deleteContact,
         setCurrent,
         clearCurrent,
         updateContact,
         filterContacts,
-        clearFilter
+        clearFilter,
+        clearContacts,
+        getContacts
       }}
     >
       {props.children}
