@@ -19,11 +19,11 @@ import {
   CLEAR_CURRENT,
   UPDATE_CONTACT,
   FILTER_CONTACTS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
 } from '../types';
 
 //set initial state
-const ContactState = props => {
+const ContactState = (props) => {
   const initialState = {
     contacts: null,
 
@@ -31,7 +31,7 @@ const ContactState = props => {
 
     filtered: null,
 
-    error: null
+    error: null,
   };
 
   //state allows us to access anything is our state  & dispatch allows us to dispatch objects to the reducer
@@ -44,7 +44,7 @@ const ContactState = props => {
   const getContacts = async () => {
     //create headers to send data
     try {
-      const res = await axios.post('/api/contacts');
+      const res = await axios.get('/api/contacts');
 
       dispatch({ type: GET_CONTACTS, payload: res.data });
     } catch (error) {
@@ -53,12 +53,12 @@ const ContactState = props => {
   };
 
   // Add Contact
-  const addContact = async contact => {
+  const addContact = async (contact) => {
     //create headers to send data
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     try {
@@ -71,7 +71,7 @@ const ContactState = props => {
   };
   // Delete Contact
 
-  const deleteContact = async id => {
+  const deleteContact = async (id) => {
     try {
       await axios.post(`/api/contacts/${id}`);
 
@@ -88,7 +88,7 @@ const ContactState = props => {
 
   // Set Current Contact
 
-  const setCurrent = contact => {
+  const setCurrent = (contact) => {
     dispatch({ type: SET_CURRENT, payload: contact });
   };
   // Clear Current Contact
@@ -98,12 +98,12 @@ const ContactState = props => {
   };
 
   //update contact
-  const updateContact = async contact => {
+  const updateContact = async (contact) => {
     //create headers to send data
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     try {
@@ -121,7 +121,7 @@ const ContactState = props => {
 
   // Filter Contacts
 
-  const filterContacts = text => {
+  const filterContacts = (text) => {
     dispatch({ type: FILTER_CONTACTS, payload: text });
   };
   // Clear Filter
@@ -147,7 +147,7 @@ const ContactState = props => {
         filterContacts,
         clearFilter,
         clearContacts,
-        getContacts
+        getContacts,
       }}
     >
       {props.children}
